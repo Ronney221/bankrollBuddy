@@ -62,7 +62,15 @@ const Notes = () => {
           <div className="chat-bubble">
             Click into one of your recent games and leave a note!
           </div>
-          <div className="chat-footer px-2">  Resume</div>
+          <div className="chat-footer px-2">
+  <a 
+    href="https://docs.google.com/document/d/1LrOxb1h5nHf0gbXTiCUulH64IVjJRTscKFopmrgyouE/edit?usp=sharing" 
+    target="_blank" 
+    rel="noopener noreferrer"
+  >
+    Resume
+  </a>
+</div>
         </div>
 
         {/* Dynamic Chat Bubbles for Saved Notes */}

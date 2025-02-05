@@ -233,7 +233,7 @@ const StatsPage = () => {
                     <td>${game.cashOut.toFixed(2)}</td>
                     <td>{game.stakes}</td>
                     <td className={game.gainLoss >= 0 ? 'text-green-500' : 'text-red-500'}>
-                        ${game.gainLoss.toFixed(2)}
+                        {game.gainLoss.toFixed(2)}$
                     </td>
                     </tr>
                 ))}

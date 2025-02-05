@@ -6,18 +6,15 @@ const Hero = ({ onGetStarted }) => {
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content text-center">
         <div className="max-w-md space-y-4">
-          <h1 className="text-5xl font-bold">Yo, what's up?</h1>
+          <h1 className="text-5xl font-bold">Elevate Your Game</h1>
           <p className="py-2">
-            Ready to flex your poker stats like a boss?
+            Track, analyze, and dominate every hand with our easy-to-use poker tracker. Your winning edge is just a click away.
           </p>
           <p className="py-2">
-          Whether you're about that savage win or just tryna know where you went wrong, we've got you.
-          </p>
-          <p>
-            Get in, get started, and let’s yeet those numbers into the stratosphere!
+            Plus, unlock advanced analytics, saved notes, and AI coaching to take your play to the next level!
           </p>
           <button className="btn btn-primary" onClick={onGetStarted}>
-            Get Started
+            Get Started for Free
           </button>
         </div>
       </div>
