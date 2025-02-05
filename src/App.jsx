@@ -1,23 +1,51 @@
 // src/App.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Hero from './Hero';
 import StatsPage from './StatsPage';
+import Notes from './Notes';
+import Graph from './Graph';
+import Advice from './Advice';
 import './App.css';
 
 function App() {
-  const [showHero, setShowHero] = useState(true);
+  // Lazy initializer reads the current page from localStorage, default to "home"
+  const [currentPage, setCurrentPage] = useState(() => {
+    return localStorage.getItem('currentPage') || 'home';
+  });
+
+  // Save currentPage to localStorage whenever it changes.
+  useEffect(() => {
+    localStorage.setItem('currentPage', currentPage);
+  }, [currentPage]);
+
+  let content;
+  switch (currentPage) {
+    case "home":
+      content = <Hero onGetStarted={() => setCurrentPage("stats")} />;
+      break;
+    case "stats":
+      content = <StatsPage />;
+      break;
+    case "notes":
+      content = <Notes />;
+      break;
+    case "graph":
+      content = <Graph />;
+      break;
+    case "advice":
+      content = <Advice />;
+      break;
+    default:
+      content = <Hero onGetStarted={() => setCurrentPage("stats")} />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar setCurrentPage={setCurrentPage} />
       <main className="flex-grow">
-        {showHero ? (
-          <Hero onGetStarted={() => setShowHero(false)} />
-        ) : (
-          <StatsPage />
-        )}
+        {content}
       </main>
       <Footer />
     </div>
