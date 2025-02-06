@@ -7,7 +7,7 @@ const Advice = () => {
       <div className="mockup-code">
         <pre data-prefix="$"><code>npm i pokeraicalculator</code></pre>
         <pre data-prefix=">"><code>installing...</code></pre>
-        <pre data-prefix=">" className="bg-warning text-warning-content"><code>Error!</code></pre>
+        <pre data-prefix=">" className="bg-warning text-warning-content"><code>Error! coming soon...</code></pre>
       </div>
 
     </div>

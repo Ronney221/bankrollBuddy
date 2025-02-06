@@ -87,7 +87,7 @@ const Navbar = ({ setCurrentPage }) => {
           className="btn btn-ghost normal-case text-xl"
           onClick={() => setCurrentPage("stats")}
         >
-          BankrollBuilder
+          bankrollBuddy
         </button>
 
         <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("notes")}>
