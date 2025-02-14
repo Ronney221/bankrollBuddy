@@ -117,9 +117,12 @@ const StatsPage = () => {
 
   return (
     <div>
-        <div className="flex flex-col bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl p-4">
+        <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl p-4">
+        <div className="mockup-browser-toolbar">
+          <div className="input">https://bankrollbuddy.com</div>
+        </div>
         {/* MAIN CONTENT */}
-        <main className="flex-grow container mx-auto p-4">
+        <main className="flex-grow container mx-auto p-4 bg-base-200 ">
             {/* Form for adding a new game */}
             <form onSubmit={handleAddGame} className="mb-6">
             <div className="grid grid-cols-6 gap-5">
@@ -349,6 +352,9 @@ const StatsPage = () => {
             </div>
             </div>
         </div>
+        <br></br>
+        <br></br>
+        <br></br>
     </div>
   );
 };

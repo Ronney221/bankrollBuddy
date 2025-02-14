@@ -93,11 +93,12 @@ const Navbar = ({ setCurrentPage }) => {
           bankrollBuddy
         </button>
 
-        <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("notes")}>
-            notes
-        </button>
         <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("graph")}>
             graph
+        </button>
+        
+        <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("notes")}>
+            notes
         </button>
       </div>
       <div className="navbar-end">

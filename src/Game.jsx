@@ -181,16 +181,16 @@ const Game = () => {
               e.preventDefault();
               addPlayer();
             }}
-            className="flex space-x-2 mb-4"
+            className="flex space-x-2 mb-4  gap-2"
           >
             <input
               type="text"
               value={newPlayerName}
               onChange={(e) => setNewPlayerName(e.target.value)}
               placeholder="Player Name"
-              className="input input-bordered w-70"
+              className="input input-bordered w-70 "
             />
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary ">
               Add Player
             </button>
 
@@ -265,6 +265,10 @@ const Game = () => {
       )}
 
       </div>
+      
+      <br></br>
+        <br></br>
+        <br></br>
     </div>
   );
 };
