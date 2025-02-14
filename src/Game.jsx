@@ -5,6 +5,7 @@ const Game = () => {
   const [players, setPlayers] = useState([]);
   const [newPlayerName, setNewPlayerName] = useState("");
   const [settlements, setSettlements] = useState([]);
+  const [showSettlements, setShowSettlements] = useState(false);
 
   // Add a new player with an empty list of buy-ins and zero cash out.
   const addPlayer = () => {
@@ -59,21 +60,31 @@ const Game = () => {
 
   // Settlement calculation: compute net for each player and match debtors/creditors.
   const calculateSettlements = () => {
-    const settlementsResult = [];
+    // Calculate the net balance for each player
     const netList = players.map(player => {
-      const totalBuy = player.buyIns.reduce((sum, b) => sum + b, 0);
+      const totalBuy = player.buyIns.reduce((sum, buy) => sum + buy, 0);
       const net = Number(player.cashOut) - totalBuy;
       return { id: player.id, name: player.name, net };
     });
-
-    const creditors = netList.filter(p => p.net > 0).sort((a, b) => b.net - a.net);
-    const debtors = netList.filter(p => p.net < 0).sort((a, b) => a.net - b.net);
-
-    let i = 0, j = 0;
-    while (i < creditors.length && j < debtors.length) {
-      const creditor = creditors[i];
-      const debtor = debtors[j];
+  
+    // Separate players into creditors and debtors, sorted by their net amounts
+    const creditors = netList
+      .filter(player => player.net > 0)
+      .sort((a, b) => b.net - a.net);
+    const debtors = netList
+      .filter(player => player.net < 0)
+      .sort((a, b) => a.net - b.net);
+  
+    const settlementsResult = [];
+    let creditorIndex = 0;
+    let debtorIndex = 0;
+  
+    // Process settlements between creditors and debtors
+    while (creditorIndex < creditors.length && debtorIndex < debtors.length) {
+      const creditor = creditors[creditorIndex];
+      const debtor = debtors[debtorIndex];
       const settlementAmount = Math.min(creditor.net, -debtor.net);
+  
       if (settlementAmount > 0) {
         settlementsResult.push({
           from: debtor.name,
@@ -83,11 +94,14 @@ const Game = () => {
         creditor.net -= settlementAmount;
         debtor.net += settlementAmount;
       }
-      if (Math.abs(creditor.net) < 0.01) i++;
-      if (Math.abs(debtor.net) < 0.01) j++;
+  
+      // Move to the next creditor or debtor when their net balance is settled
+      if (Math.abs(creditor.net) < 0.01) creditorIndex++;
+      if (Math.abs(debtor.net) < 0.01) debtorIndex++;
     }
-
+  
     setSettlements(settlementsResult);
+    setShowSettlements(true); // Ensure the settlements card is displayed
   };
 
   // Player card component displaying individual buy-ins.
@@ -179,7 +193,15 @@ const Game = () => {
             <button type="submit" className="btn btn-primary">
               Add Player
             </button>
+
+            <div>
+            <button className="btn btn-secondary" onClick={calculateSettlements}>
+              Calculate Settlements
+            </button>
+            </div>
           </form>
+
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {players.map(player => (
               <PlayerCard key={player.id} player={player} />
@@ -188,9 +210,8 @@ const Game = () => {
         </div>
       </div>
       <div>
+        
         {/* Statistics Section */}
-        <br />
-        <br />
         <div className="flex justify-center mt-6">
           <div className="stats shadow grid grid-cols-3 gap-4">
             <div className="stat place-items-center">
@@ -223,26 +244,25 @@ const Game = () => {
             </div>
           </div>
         </div>
-        <div className="text-center mt-4">
-          <button className="btn btn-primary" onClick={calculateSettlements}>
-            Calculate Settlements
-          </button>
-        </div>
+         
+
+        {showSettlements && (
         <div className="card bg-base-100 shadow-lg mx-auto max-w-md mt-4">
-            <div className="card-body">
-                <h3 className="card-title text-center">Settlements</h3>
-                <div className="space-y-2 mt-4">
-                {settlements.map((settlement, idx) => (
-                    <div
-                    key={idx}
-                    className="p-2 rounded bg-base-200 text-base-content shadow"
-                    >
-                    {settlement.from} pays {settlement.to} ${settlement.amount}
-                    </div>
-                ))}
+          <div className="card-body">
+            <h3 className="card-title text-center">Settlements</h3>
+            <div className="space-y-2 mt-4">
+              {settlements.map((settlement, idx) => (
+                <div
+                  key={idx}
+                  className="p-2 rounded bg-base-200 text-base-content shadow"
+                >
+                  {settlement.from} pays {settlement.to} {settlement.amount}$
                 </div>
+              ))}
             </div>
+          </div>
         </div>
+      )}
 
       </div>
     </div>

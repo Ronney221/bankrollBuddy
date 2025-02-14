@@ -305,8 +305,6 @@ const StatsPage = () => {
         </div>
         <div>
             {/* Statistics Section */}
-            <br />
-            <br />
             <div className="flex justify-center mt-6">
             <div className="stats shadow">
 
