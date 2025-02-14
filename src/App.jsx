@@ -51,6 +51,8 @@ function App() {
       <Navbar setCurrentPage={setCurrentPage} />
       <main className="flex-grow">
         {content}
+
+        <Analytics />
       </main>
       <Footer />
     </div>
