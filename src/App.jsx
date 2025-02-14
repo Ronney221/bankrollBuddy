@@ -7,6 +7,7 @@ import StatsPage from './StatsPage';
 import Notes from './Notes';
 import Graph from './Graph';
 import Advice from './Advice';
+import Game from './Game';
 import './App.css';
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
       break;
     case "advice":
       content = <Advice />;
+      break;
+    case "game": 
+      content = <Game />;
       break;
     default:
       content = <Hero onGetStarted={() => setCurrentPage("stats")} />;

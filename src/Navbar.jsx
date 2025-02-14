@@ -79,9 +79,10 @@ const Navbar = ({ setCurrentPage }) => {
             <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("home")}>
             home
           </button>
-            <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("advice")}>
-            ai
-          </button>
+          <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("game")}>
+            game
+        </button>
+            
         
         <button
           className="btn btn-ghost normal-case text-xl"
@@ -95,10 +96,12 @@ const Navbar = ({ setCurrentPage }) => {
         </button>
         <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("graph")}>
             graph
-          </button>
+        </button>
       </div>
       <div className="navbar-end">
-   
+      <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("advice")}>
+            ai
+          </button>
         
       </div>
     </div>
