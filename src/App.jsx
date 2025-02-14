@@ -1,4 +1,5 @@
 // src/App.jsx
+import { Analytics } from "@vercel/analytics/react"
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
