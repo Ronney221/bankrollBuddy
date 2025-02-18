@@ -202,18 +202,6 @@ const Navbar = ({ setCurrentPage }) => {
         >
           <ul className="menu menu-compact p-4">
             {navItems}
-            <li>
-              {/* Mobile Theme Changer */}
-              <div className="dropdown">
-                <button
-                  onClick={() => setThemeOpen(!themeOpen)}
-                  className="btn btn-ghost text-base sm:text-xl"
-                >
-                  Theme
-                </button>
-                {themeOpen && themeChanger}
-              </div>
-            </li>
           </ul>
         </div>
       )}

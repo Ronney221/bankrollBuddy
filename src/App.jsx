@@ -9,6 +9,8 @@ import Graph from './Graph';
 import Advice from './Advice';
 import Game from './Game';
 import Pokernow from './Pokernow';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 function App() {
@@ -56,6 +58,17 @@ function App() {
         {content}
       </main>
       <Footer />
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
