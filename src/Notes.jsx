@@ -38,9 +38,21 @@ const Notes = () => {
   let bubbleIndex = 0;
 
   return (
-    
+    // <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl">
+    //   <div className="mockup-browser-toolbar">
+    //     <div className="input">https://notes.com</div>
+    //   </div>
+    //   <div className="bg-base-200 flex flex-col justify-center px-4 py-16 space-y-8">
+    //     {/* Wrap your table sections */}
+    //     <div className="max-w-3xl mx-auto px-4">
+    //       {/* Insert your table code here */}
+    //     </div>
+    //   </div>
+    // </div>
 
-    <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl p-4">
+    
+    <div className="w-full sm:max-w-3xl md:max-w-5xl mx-auto px-4">
+    <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl">
       <div className="mockup-browser-toolbar">
         <div className="input">https://notes.com</div>
       </div>
@@ -116,7 +128,7 @@ const Notes = () => {
         )}
       </div>
       </div>
-
+      </div>
    
   );
 };

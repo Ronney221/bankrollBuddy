@@ -100,6 +100,11 @@ const Navbar = ({ setCurrentPage }) => {
         <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("notes")}>
             notes
         </button>
+
+        <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("pokernow")}>
+        pokernow
+        </button>
+        
       </div>
       <div className="navbar-end">
       <button className="btn btn-ghost text-xl" onClick={() => setCurrentPage("advice")}>

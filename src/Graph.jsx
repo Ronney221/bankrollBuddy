@@ -172,7 +172,8 @@ const Graph = () => {
   return (
     <div>
       {/* Profit/Loss Line Chart */}
-      <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl p-4">
+      <div className="w-full sm:max-w-3xl md:max-w-5xl mx-auto px-4">
+      <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl">
         <div className="mockup-browser-toolbar">
           <div className="input">https://graph.com</div>
         </div>
@@ -211,6 +212,7 @@ const Graph = () => {
           <Bar data={barData} options={barOptions} />
         </div>
       </div>
+    </div>
     </div>
   );
 };
