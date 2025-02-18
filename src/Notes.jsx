@@ -51,7 +51,7 @@ const Notes = () => {
     // </div>
 
     
-    <div className="w-full sm:max-w-3xl md:max-w-5xl mx-auto px-4">
+    <div className="w-full sm:max-w-3xl md:max-w-7xl mx-auto px-4">
     <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl">
       <div className="mockup-browser-toolbar">
         <div className="input">https://notes.com</div>

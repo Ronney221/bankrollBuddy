@@ -170,7 +170,7 @@ const Game = () => {
 
   return (
     <div>
-      <div className="w-full sm:max-w-3xl md:max-w-5xl mx-auto px-4">
+      <div className="w-full sm:max-w-3xl md:max-w-7xl mx-auto px-4">
       <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl">
         <div className="mockup-browser-toolbar">
           <div className="input">https://homegamecalculator.com</div>
@@ -182,7 +182,7 @@ const Game = () => {
               e.preventDefault();
               addPlayer();
             }}
-            className="flex space-x-2 mb-4  gap-2"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5"
           >
             <input
               type="text"

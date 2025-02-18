@@ -117,7 +117,7 @@ const StatsPage = () => {
 
   return (
     <div>
-      <div className="w-full sm:max-w-3xl md:max-w-5xl mx-auto px-4">
+      <div className="w-full sm:max-w-3xl md:max-w-7xl mx-auto px-4">
         <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl">
         <div className="mockup-browser-toolbar">
           <div className="input">https://bankrollbuddy.com</div>
@@ -126,8 +126,8 @@ const StatsPage = () => {
         <main className="mx-auto p-4 bg-base-200 ">
             {/* Form for adding a new game */}
             <form onSubmit={handleAddGame} className="mb-6">
-            <div className="grid grid-cols-6 gap-5">
-                <input
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+              <input
                 type="text"
                 name="gameName"
                 value={formData.gameName}
@@ -135,8 +135,8 @@ const StatsPage = () => {
                 placeholder="Game Name"
                 className="input input-bordered w-full"
                 required
-                />
-                <input
+              />
+              <input
                 type="number"
                 name="buyIn"
                 value={formData.buyIn}
@@ -144,8 +144,8 @@ const StatsPage = () => {
                 placeholder="Buy In"
                 className="input input-bordered w-full"
                 required
-                />
-                <input
+              />
+              <input
                 type="number"
                 name="cashOut"
                 value={formData.cashOut}
@@ -153,54 +153,53 @@ const StatsPage = () => {
                 placeholder="Cash Out"
                 className="input input-bordered w-full"
                 required
-                />
-                <input
+              />
+              <input
                 type="text"
                 name="stakes"
                 value={formData.stakes}
                 onChange={handleChange}
                 placeholder="Stakes (e.g., 1/2)"
                 className="input input-bordered w-full"
-                />
-                <button type="submit" className="btn btn-primary">
+              />
+              <button type="submit" className="btn btn-primary">
                 Add Game
-                </button>
-                {/* CLEAR DATA BUTTON */}
-                <div className="flex justify-start">
+              </button>
+              <div className="flex justify-start">
                 <button
-                    type="button"
-                    className="btn btn-outline btn-error"
-                    onClick={() => document.getElementById('clearModal').showModal()}
-                    >
-                    Clear Data
+                  type="button"
+                  className="btn btn-outline btn-error"
+                  onClick={() => document.getElementById('clearModal').showModal()}
+                >
+                  Clear Data
                 </button>
-                </div>
-                {/* CLEAR DATA MODAL */}
-                <dialog id="clearModal" className="modal modal-bottom sm:modal-middle">
+              </div>
+              {/* CLEAR DATA MODAL */}
+              <dialog id="clearModal" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">Warning</h3>
-                    <p className="py-4">
+                  <h3 className="font-bold text-lg">Warning</h3>
+                  <p className="py-4">
                     This will clear all your saved data. Are you sure?
-                    </p>
-                    <div className="modal-action">
+                  </p>
+                  <div className="modal-action">
                     <button className="btn" onClick={handleClearData}>
-                        Yes, clear data
+                      Yes, clear data
                     </button>
                     <button
-                        className="btn btn-outline"
-                        onClick={() => document.getElementById('clearModal').close()}
-                        >
-                        No, cancel
+                      className="btn btn-outline"
+                      onClick={() => document.getElementById('clearModal').close()}
+                    >
+                      No, cancel
                     </button>
-                    </div>
+                  </div>
                 </div>
-                </dialog>
+              </dialog>
             </div>
-            </form>
+          </form>
 
             {/* Table displaying all games */}
             <div className="overflow-x-auto">
-            <table className="table w-full table-zebra hover">
+            <table className="table w-full table-zebra hover min-w-full text-left text-sm">
                 <thead>
                 <tr>
                     <th>#</th>
