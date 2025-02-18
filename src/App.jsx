@@ -27,7 +27,8 @@ function App() {
   let content;
   switch (currentPage) {
     case "home":
-      content = <Hero onGetStarted={() => setCurrentPage("home")} />;
+      // Change onGetStarted so that it switches to "stats"
+      content = <Hero onGetStarted={() => setCurrentPage("stats")} setCurrentPage={setCurrentPage} />;
       break;
     case "stats":
       content = <StatsPage />;
@@ -41,14 +42,15 @@ function App() {
     case "advice":
       content = <Advice />;
       break;
-    case "game": 
+    case "game":
       content = <Game />;
       break;
-    case "pokernow": 
+    case "pokernow":
       content = <Pokernow />;
       break;
     default:
-      content = <Hero onGetStarted={() => setCurrentPage("stats")} />;
+      // Fallback: Render Hero with correct props
+      content = <Hero onGetStarted={() => setCurrentPage("stats")} setCurrentPage={setCurrentPage} />;
   }
 
   return (

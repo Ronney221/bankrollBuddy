@@ -37,7 +37,7 @@ const Navbar = ({ setCurrentPage }) => {
         <button className="btn btn-ghost text-base sm:text-xl">game</button>
       </li>
       <li onClick={() => { setCurrentPage("stats"); setMobileMenuOpen(false); }}>
-        <button className="btn btn-ghost text-base sm:text-xl">bankrollBuddy</button>
+        <button className="btn btn-ghost text-base sm:text-xl">bankrollBuddy (beta)</button>
       </li>
       <li onClick={() => { setCurrentPage("graph"); setMobileMenuOpen(false); }}>
         <button className="btn btn-ghost text-base sm:text-xl">graph</button>
@@ -147,7 +147,7 @@ const Navbar = ({ setCurrentPage }) => {
             className="btn btn-ghost normal-case text-xl"
             onClick={() => { setCurrentPage("stats"); setMobileMenuOpen(false); }}
           >
-            bankrollBuddy
+            bankrollBuddy (beta)
           </button>
         </div>
         {/* Desktop: Theme changer dropdown on the left */}

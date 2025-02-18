@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Papa from 'papaparse';
 import stringSimilarity from 'string-similarity';
+import { toast } from 'react-toastify';
 
 const Pokernow = () => {
   const [parsedData, setParsedData] = useState([]);
@@ -100,14 +101,17 @@ const Pokernow = () => {
             return { group, canonical: group[0], totals };
           });
           setAliasGroups(initialAliasGroups);
+          toast.success("CSV file processed successfully!");
         } catch (err) {
           setError("Error processing CSV data.");
           console.error(err);
+          toast.error("Error processing CSV data.");
         }
       },
       error: (err) => {
         setError("Error reading file.");
         console.error(err);
+        toast.error("Error reading file.");
       },
     });
   };
@@ -136,6 +140,7 @@ const Pokernow = () => {
     });
     setParsedData(newData);
     setGroupingConfirmed(true);
+    toast.success("Groupings confirmed!");
   };
 
   // Go back to grouping view
@@ -171,6 +176,7 @@ const Pokernow = () => {
     // Compute settlement transactions
     const settlements = settleDebts(netBalances);
     setTransactions(settlements);
+    toast.success("Settlements calculated successfully!");
   };
 
   // Simple settlement algorithm to minimize transactions:
@@ -228,81 +234,80 @@ const Pokernow = () => {
 
   return (
     <div className="w-full sm:max-w-3xl md:max-w-7xl mx-auto px-4">
-    <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl">
-      <div className="mockup-browser-toolbar">
-        <div className="input">https://payouts.com</div>
-      </div>
-      <div className="bg-base-200 flex flex-col justify-center items-center px-4 py-16">
-        <h2 className="text-xl font-bold mb-4">Pokernow Ledger Calculator</h2>
-        <p className="mb-4 text-center">
-          Upload your CSV file. The CSV should include columns:{' '}
-          <code>player_nickname</code>, <code>buy_in</code>, <code>buy_out</code>, and <code>stack</code>.
-        </p>
-        <input
-          type="file"
-          accept=".csv"
-          onChange={handleFileUpload}
-          className="file-input file-input-bordered file-input-accent w-full max-w-xs btn-outline "
-        />
-        <br></br>
-        {error && <p className="text-red-600">{error}</p>}
+      <div className="mockup-browser bg-base-300 max-w-5xl mx-auto my-20 rounded-box shadow-2xl">
+        <div className="mockup-browser-toolbar">
+          <div className="input">https://payouts.com</div>
+        </div>
+        <div className="bg-base-200 flex flex-col justify-center items-center px-4 py-16">
+          <h2 className="text-xl font-bold mb-4">Pokernow Ledger Calculator</h2>
+          <p className="mb-4 text-center">
+            Upload your CSV file. The CSV should include columns:{' '}
+            <code>player_nickname</code>, <code>buy_in</code>, <code>buy_out</code>, and <code>stack</code>.
+          </p>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleFileUpload}
+            className="file-input file-input-bordered file-input-accent w-full max-w-xs btn-outline"
+          />
+          <br />
+          {error && <p className="text-red-600">{error}</p>}
 
-        {/* Fuzzy grouping suggestions */}
-        {aliasGroups.length > 0 && !groupingConfirmed && (
-          <div className="w-full mb-6">
-            <h3 className="text-lg font-semibold mb-2">Confirm Alias Grouping</h3>
-            <p className="mb-2">
-              We detected similar nicknames with their aggregated financial data.
-              Adjust the Player Name if needed.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {aliasGroups.map((groupObj, index) => (
-                <div key={index} className="p-4 border rounded bg-white">
-                  <div className="mb-2 text-sm">
-                    <strong>Aliases:</strong> {groupObj.group.join(', ')}
+          {/* Fuzzy grouping suggestions */}
+          {aliasGroups.length > 0 && !groupingConfirmed && (
+            <div className="w-full mb-6">
+              <h3 className="text-lg font-semibold mb-2">Confirm Alias Grouping</h3>
+              <p className="mb-2">
+                We detected similar nicknames with their aggregated financial data.
+                Adjust the Player Name if needed.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {aliasGroups.map((groupObj, index) => (
+                  <div key={index} className="p-4 border rounded bg-white">
+                    <div className="mb-2 text-sm">
+                      <strong>Aliases:</strong> {groupObj.group.join(', ')}
+                    </div>
+                    <div className="mb-2 text-sm">
+                      {groupObj.group.length > 1 ? (
+                        <>
+                          <strong>Group Totals:</strong> Buy‑in: $
+                          {(groupObj.totals.buyIn / 100).toFixed(2)}, Combined Cash‑out: $
+                          {(groupObj.totals.combined / 100).toFixed(2)}
+                        </>
+                      ) : (
+                        <>
+                          <strong>Buy‑in:</strong> $
+                          {(aliasSummary[groupObj.group[0]].buyIn / 100).toFixed(2)},{' '}
+                          <strong>Combined Cash‑out:</strong> $
+                          {(aliasSummary[groupObj.group[0]].combined / 100).toFixed(2)}
+                        </>
+                      )}
+                    </div>
+                    <label>
+                      Player Name:{' '}
+                      <input
+                        type="text"
+                        value={groupObj.canonical}
+                        onChange={(e) => handleCanonicalChange(index, e.target.value)}
+                        className="border rounded p-1 ml-2"
+                      />
+                    </label>
                   </div>
-                  <div className="mb-2 text-sm">
-                    {groupObj.group.length > 1 ? (
-                      <>
-                        <strong>Group Totals:</strong> Buy‑in: $
-                        {(groupObj.totals.buyIn / 100).toFixed(2)}, Combined Cash‑out: $
-                        {(groupObj.totals.combined / 100).toFixed(2)}
-                      </>
-                    ) : (
-                      <>
-                        <strong>Buy‑in:</strong> $
-                        {(aliasSummary[groupObj.group[0]].buyIn / 100).toFixed(2)},{' '}
-                        <strong>Combined Cash‑out:</strong> $
-                        {(aliasSummary[groupObj.group[0]].combined / 100).toFixed(2)}
-                      </>
-                    )}
-                  </div>
-                  <label>
-                    Player Name:{' '}
-                    <input
-                      type="text"
-                      value={groupObj.canonical}
-                      onChange={(e) => handleCanonicalChange(index, e.target.value)}
-                      className="border rounded p-1 ml-2"
-                    />
-                  </label>
-                </div>
-              ))}
+                ))}
+              </div>
+              <button
+                onClick={confirmGrouping}
+                className="mt-4 px-4 py-2 btn btn-outline btn-accent"
+              >
+                Confirm Groupings
+              </button>
             </div>
-            <button
-              onClick={confirmGrouping}
-              className="mt-4 px-4 py-2 btn btn-outline btn-accent "
-            >
-              Confirm Groupings
-            </button>
-          </div>
-        )}
+          )}
 
-        {/* Confirmed groupings displayed in a table with header centered and back button top left */}
-        {groupingConfirmed && (
-          <>
-          
-        <div className="divider"></div>
+          {/* Confirmed groupings displayed in a table */}
+          {groupingConfirmed && (
+            <>
+              <div className="divider"></div>
               <h3 className="text-lg font-semibold text-center mb-4">Confirmed Groupings</h3>
               <div className="overflow-x-auto">
                 <table className="table">
@@ -326,57 +331,56 @@ const Pokernow = () => {
                   </tbody>
                 </table>
               </div>
-            
-          </>
-        )}
+            </>
+          )}
 
-
-        {/* Back Button */}
-        
-        {/* Once grouping is confirmed, allow calculation of settlement */}
-       
-
-      
-        {groupingConfirmed && (
-        
-          <div className="join p-6">
-            <button onClick={backToGrouping} className="join-item btn btn-neutral">«</button>
-            <button  onClick={calculateSettlement} className="join-item btn btn-outline btn-accent ">Calculate Settlement</button>
-          </div>
-        )}
-        
-
-        {/* Settlement Transactions displayed in a table */}
-        {transactions.length > 0 && (
-          
-          <div className="w-1/2">
-                    
-          <div className="divider"></div>
-            <h3 className="text-lg font-semibold text-center mb-4">Settlement Transactions</h3>
-            <div className="overflow-x-auto">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th className="px-4 py-2 border-b">From</th>
-                    <th className="px-4 py-2 border-b">To</th>
-                    <th className="px-4 py-2 border-b">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {transactions.map((t, index) => (
-                    <tr key={index} className="hover:bg-green-100">
-                      <td className="px-4 py-2 border-b">{t.from}</td>
-                      <td className="px-4 py-2 border-b">{t.to}</td>
-                      <td className="px-4 py-2 border-b">${t.amount}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          {/* Back and Settlement Buttons */}
+          {groupingConfirmed && (
+            <div className="join p-6">
+              <button onClick={backToGrouping} className="join-item btn btn-neutral">
+                «
+              </button>
+              <button
+                onClick={calculateSettlement}
+                className="join-item btn btn-outline btn-accent"
+              >
+                Calculate Settlement
+              </button>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Settlement Transactions displayed in a table */}
+          {transactions.length > 0 && (
+            <div className="w-1/2">
+              <div className="divider"></div>
+              <h3 className="text-lg font-semibold text-center mb-4">
+                Settlement Transactions
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th className="px-4 py-2 border-b">From</th>
+                      <th className="px-4 py-2 border-b">To</th>
+                      <th className="px-4 py-2 border-b">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {transactions.map((t, index) => (
+                      <tr key={index} className="hover:bg-green-100">
+                        <td className="px-4 py-2 border-b">{t.from}</td>
+                        <td className="px-4 py-2 border-b">{t.to}</td>
+                        <td className="px-4 py-2 border-b">${t.amount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+      <br /><br /><br />
     </div>
   );
 };
