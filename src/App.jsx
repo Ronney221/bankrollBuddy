@@ -8,6 +8,7 @@ import Notes from './Notes';
 import Graph from './Graph';
 import Advice from './Advice';
 import Game from './Game';
+import Pokernow from './Pokernow';
 import './App.css';
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
   let content;
   switch (currentPage) {
     case "home":
-      content = <Hero onGetStarted={() => setCurrentPage("stats")} />;
+      content = <Hero onGetStarted={() => setCurrentPage("home")} />;
       break;
     case "stats":
       content = <StatsPage />;
@@ -40,6 +41,9 @@ function App() {
       break;
     case "game": 
       content = <Game />;
+      break;
+    case "pokernow": 
+      content = <Pokernow />;
       break;
     default:
       content = <Hero onGetStarted={() => setCurrentPage("stats")} />;
