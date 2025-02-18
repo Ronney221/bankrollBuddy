@@ -196,7 +196,7 @@ const Game = () => {
             </button>
 
             <div>
-            <button className="btn btn-secondary" onClick={calculateSettlements}>
+            <button className="btn btn-outline btn-secondary" onClick={calculateSettlements}>
               Calculate Settlements
             </button>
             </div>
@@ -214,7 +214,7 @@ const Game = () => {
         
         {/* Statistics Section */}
         <div className="flex justify-center mt-6">
-          <div className="stats shadow grid grid-cols-3 gap-4">
+          <div className="stats stats-vertical lg:stats-horizontal shadow">
             <div className="stat place-items-center">
               <div className="stat-title">total buy in</div>
               <div className="stat-value">

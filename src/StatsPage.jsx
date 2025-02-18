@@ -198,52 +198,50 @@ const StatsPage = () => {
           </form>
 
             {/* Table displaying all games */}
-            <div className="overflow-x-auto">
-            <table className="table w-full table-zebra hover min-w-full text-left text-sm">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Game Name</th>
-                    <th>Buy In</th>
-                    <th>Cash Out</th>
-                    <th>Stakes</th>
-                    <th>Gain/Loss</th>
-                </tr>
-                </thead>
-                <tbody>
-                {games.map((game, index) => (
-                    <tr
-                    className="hover cursor-pointer"
-                    key={game.id}
-                    onClick={() => openGameDetailsModal(game)}
-                    >
-                    <th>{index + 1}</th>
-                    <td>   
-                        <div className="indicator">
-                            <span>{game.gameName}</span>
-                            {(game.memorableHands?.trim() || game.playerNotes?.trim()) && (
-                            <span className="indicator-item ">
-                                <span className="relative flex w-3 h-3">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
-                                <span className="relative inline-flex h-3 w-3 rounded-full bg-sky-500"></span>
-                                </span>
-                            </span>
-                            )}
-                        </div>
-                    </td>
-
-                    <td>${game.buyIn.toFixed(2)}</td>
-                    <td>${game.cashOut.toFixed(2)}</td>
-                    <td>{game.stakes}</td>
-                    <td className={game.gainLoss >= 0 ? 'text-green-500' : 'text-red-500'}>
-                        {game.gainLoss.toFixed(2)}$
-                    </td>
-                    </tr>
-                ))}
-                </tbody>
-                
-            </table>
+<div className="overflow-x-auto">
+  <table className="table w-full table-zebra hover min-w-full text-left text-sm">
+    <thead>
+      <tr>
+        <th className="hidden sm:table-cell">#</th>
+        <th>Game Name</th>
+        <th>Buy In</th>
+        <th>Cash Out</th>
+        <th className="hidden sm:table-cell">Stakes</th>
+        <th>Gain/Loss</th>
+      </tr>
+    </thead>
+    <tbody>
+      {games.map((game, index) => (
+        <tr
+          key={game.id}
+          className="hover cursor-pointer"
+          onClick={() => openGameDetailsModal(game)}
+        >
+          <th className="hidden sm:table-cell">{index + 1}</th>
+          <td>
+            <div className="indicator">
+              <span>{game.gameName}</span>
+              {(game.memorableHands?.trim() || game.playerNotes?.trim()) && (
+                <span className="indicator-item">
+                  <span className="relative flex w-3 h-3">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-sky-500"></span>
+                  </span>
+                </span>
+              )}
             </div>
+          </td>
+          <td>${game.buyIn.toFixed(2)}</td>
+          <td>${game.cashOut.toFixed(2)}</td>
+          <td className="hidden sm:table-cell">{game.stakes}</td>
+          <td className={game.gainLoss >= 0 ? "text-green-500" : "text-red-500"}>
+            {game.gainLoss.toFixed(2)}$
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
                 
             
         </main>
@@ -309,7 +307,7 @@ const StatsPage = () => {
         <div>
             {/* Statistics Section */}
             <div className="flex justify-center mt-6">
-            <div className="stats shadow">
+            <div className="stats stats-vertical lg:stats-horizontal shadow">
 
                 <div className="stat place-items-center">
                     <div className="stat-title">Buy In</div>

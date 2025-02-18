@@ -5,23 +5,23 @@ const Navbar = ({ setCurrentPage }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
   const mobileMenuRef = useRef(null);
+  const toggleButtonRef = useRef(null);
 
-  // Close mobile menu if clicked outside
+  // Close mobile menu if clicked outside, but ignore clicks on the toggle button
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
+        mobileMenuOpen &&
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target)
+        !mobileMenuRef.current.contains(event.target) &&
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(event.target)
       ) {
         setMobileMenuOpen(false);
       }
     };
 
-    if (mobileMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -31,34 +31,22 @@ const Navbar = ({ setCurrentPage }) => {
   const navItems = (
     <>
       <li onClick={() => { setCurrentPage("home"); setMobileMenuOpen(false); }}>
-          <button className="btn btn-ghost text-xl">
-            home
-          </button>
+        <button className="btn btn-ghost text-base sm:text-xl">home</button>
       </li>
       <li onClick={() => { setCurrentPage("game"); setMobileMenuOpen(false); }}>
-      <button className="btn btn-ghost text-xl">
-            game
-          </button>
+        <button className="btn btn-ghost text-base sm:text-xl">game</button>
       </li>
       <li onClick={() => { setCurrentPage("stats"); setMobileMenuOpen(false); }}>
-      <button className="btn btn-ghost text-xl">
-            bankrollBuddy
-          </button>
+        <button className="btn btn-ghost text-base sm:text-xl">bankrollBuddy</button>
       </li>
       <li onClick={() => { setCurrentPage("graph"); setMobileMenuOpen(false); }}>
-      <button className="btn btn-ghost text-xl">
-            graph
-          </button>
+        <button className="btn btn-ghost text-base sm:text-xl">graph</button>
       </li>
       <li onClick={() => { setCurrentPage("notes"); setMobileMenuOpen(false); }}>
-      <button className="btn btn-ghost text-xl">
-            notes
-          </button>
+        <button className="btn btn-ghost text-base sm:text-xl">notes</button>
       </li>
       <li onClick={() => { setCurrentPage("pokernow"); setMobileMenuOpen(false); }}>
-      <button className="btn btn-ghost text-xl">
-            pokernow
-          </button>
+        <button className="btn btn-ghost text-base sm:text-xl">pokernow</button>
       </li>
     </>
   );
@@ -67,7 +55,7 @@ const Navbar = ({ setCurrentPage }) => {
   const themeChanger = (
     <ul
       tabIndex={0}
-      className="dropdown-content bg-base-300 rounded-box w-52 p-2 shadow-2xl mt-2"
+      className="dropdown-content bg-base-300 rounded-box w-52 p-2 shadow-2xl left-0 top-full"
     >
       <li>
         <input
@@ -118,7 +106,7 @@ const Navbar = ({ setCurrentPage }) => {
   );
 
   return (
-    // Make the navbar sticky at the top with a high z-index
+    // Navbar is sticky at the top with a high z-index so it sits on top of other content
     <div className="navbar bg-base-300 sticky top-0 z-50 shadow-md">
       <Analytics />
       {/* Navbar Start */}
@@ -126,6 +114,7 @@ const Navbar = ({ setCurrentPage }) => {
         {/* Mobile: Hamburger Menu & Home Button */}
         <div className="flex items-center lg:hidden">
           <button
+            ref={toggleButtonRef}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="btn btn-ghost btn-circle mr-2"
           >
@@ -161,7 +150,7 @@ const Navbar = ({ setCurrentPage }) => {
             bankrollBuddy
           </button>
         </div>
-        {/* Desktop: Theme changer dropdown is on the left */}
+        {/* Desktop: Theme changer dropdown on the left */}
         <div className="hidden lg:flex">
           <div className="dropdown">
             <button
@@ -190,12 +179,12 @@ const Navbar = ({ setCurrentPage }) => {
         </div>
       </div>
 
-      {/* Navbar Center */}
+      {/* Navbar Center (Desktop) */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{navItems}</ul>
       </div>
 
-      {/* Navbar End */}
+      {/* Navbar End (Desktop) */}
       <div className="navbar-end hidden lg:flex">
         <button
           className="btn btn-ghost text-xl"
@@ -209,7 +198,7 @@ const Navbar = ({ setCurrentPage }) => {
       {mobileMenuOpen && (
         <div
           ref={mobileMenuRef}
-          className="absolute top-full left-0 w-full bg-base-300 z-50 shadow-md lg:hidden"
+          className="absolute top-full left-0 bg-base-300 z-50 shadow-md lg:hidden"
         >
           <ul className="menu menu-compact p-4">
             {navItems}
@@ -218,7 +207,7 @@ const Navbar = ({ setCurrentPage }) => {
               <div className="dropdown">
                 <button
                   onClick={() => setThemeOpen(!themeOpen)}
-                  className="btn btn-ghost btn-sm w-full text-left"
+                  className="btn btn-ghost text-base sm:text-xl"
                 >
                   Theme
                 </button>

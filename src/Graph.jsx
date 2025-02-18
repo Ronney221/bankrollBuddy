@@ -185,7 +185,7 @@ const Graph = () => {
       {/* Key Statistics Section */}
       <div className="max-w-5xl mx-auto my-8 p-4">
         <h2 className="text-2xl font-bold text-center mb-4">Key Statistics</h2>
-        <div className="stats stats-vertical sm:stats-horizontal shadow flex justify-center">
+        <div className="sstats stats-vertical lg:stats-horizontal shadow">
           <div className="stat">
             <div className="stat-title flex justify-center">Biggest Win</div>
             <div className="stat-value text-green-500 flex justify-center">{biggestWin.toFixed(2)}$</div>
